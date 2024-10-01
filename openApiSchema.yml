@@ -72,25 +72,6 @@ paths:
           description: No Content
         '404':
           description: Delegate not found
-  /delegates/{goesBy}:
-    parameters:
-    - name: goesBy
-      in: path
-      required: true
-      schema:
-        type: string
-    goesBy:
-      summary: Get a delegate by GoesBy
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Delegate'
-        '404':
-          description: Delegate not found
-
 components:
   schemas:
     Delegate:
