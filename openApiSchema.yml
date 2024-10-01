@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Delegates API
+paths:
+  /delegates:
+    get:
+      summary: Get all delegates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delegate'
+    post:
+      summary: Create a new delegate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Delegate'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delegate'
+  /delegates/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a delegate by ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delegate'
+        '404':
+          description: Delegate not found
+    put:
+      summary: Update a Delegate by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Delegate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delegate'
+        '404':
+          description: Delegate not found
+    delete:
+      summary: Delete a Delegate by ID
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Delegate not found
+components:
+  schemas:
+    Delegate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        firstName:
+          type: string
+        lastName:
+          type: string
+        goesBy:
+          type: string
