@@ -76,6 +76,18 @@ export default class Database {
     return result.recordset[0];
   }
 
+  async goesBy(goesBy) {
+    await this.connect();
+
+    const request = this.poolconnection.request();
+    const result = await request
+      .input('goesBy', sql.NVarChar(255), data.goesBy)
+      .query(`SELECT * FROM tblDelegate WHERE goesBy = @goesBy`);
+
+    return result.recordset[0];
+  }
+
+
   async update(id, data) {
     await this.connect();
 

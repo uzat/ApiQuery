@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/467691b6-5336-4c80-8390-6defd6ee8db2/resourceGroups/rgKeyPath/providers/Microsoft.Web/sites/keypath-apiquery",
+    "appService.deploySubpath": "."
+}
