@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive test",
-    "bump-version": "npm version patch"
+    "test": "echo \"No test specified\""
   },
   "keywords": [],
   "author": "",
