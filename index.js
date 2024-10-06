@@ -18,17 +18,53 @@ app.use('/delegates', delegate);
 app.use('/cities', city);
 
 //GET Search
-app.use('search/', async (req, res) => {
-  try{
-      const searchParams = req.query
-      console.log(searchParams)
-      const delegates = await data.find(searchParams)
-      if(!delegates) throw Error('Error, No Delegates Found...!')
-      res.status(200).json(delegates)
-  }catch(err){
-      res.status(400).json({msg:err})
-  }
-})
+// app.use('search/', async (req, res) => {
+//   try{
+//       const searchParams = req.query
+//       console.log(searchParams)
+//       const delegates = await data.find(searchParams)
+//       if(!delegates) throw Error('Error, No Delegates Found...!')
+//       res.status(200).json(delegates)
+//   }catch(err){
+//       res.status(400).json({msg:err})
+//   }
+// })
+
+// Search endpoint
+app.get('/search', (req, res) => {
+    const searchTerm = req.query.term;
+    if (!searchTerm) {
+        return res.status(400)
+            .json(
+                {
+                    error: 'Search term is required'
+                }
+            );
+    }
+ 
+    const query = `
+    SELECT * FROM dbo.Delegates
+    WHERE goesBy LIKE ?
+  `;
+  // Use '%' to perform a partial match
+    const searchValue = `%${searchTerm}%`;
+ 
+    db.query(query, [searchValue, searchValue],
+        (err, results) => {
+            if (err) {
+                console
+                    .error('Error executing search query:', err);
+                return res.status(500)
+                    .json(
+                        {
+                            error: 'Internal server error'
+                        });
+            }
+ 
+            res.json(results);
+        });
+});
+ 
 
 app.use('*', (_, res) => {
   res.redirect('/api-docs');
